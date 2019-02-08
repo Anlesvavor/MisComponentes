@@ -14,6 +14,13 @@ import javax.swing.JComponent;
  */
 public class Linea extends JComponent{
 
+    public Linea() {
+    }
+
+    public Linea(TipoLinea tipo) {
+        this.tipo = tipo;
+    }
+    
     public TipoLinea getTipo() {
         return tipo;
     }
@@ -35,7 +42,31 @@ public class Linea extends JComponent{
     public void paint(Graphics grphcs) {
         super.paint(grphcs); //To change body of generated methods, choose Tools | Templates.
         // dibujar de forma relativa a las dimensiones del componente
-        grphcs.drawLine(0, 0, getWidth()-1, getHeight()-1);
+        int ancho = getWidth()-1;
+        int largo = getHeight()-1;
+        int xi = 0, yi = 0 , xf = ancho, yf = largo;
+        switch (getTipo()){
+            case HORIZONTAL:
+            xi = 0;
+            yi = largo/2;
+            xf = ancho;
+            yf = yi;
+            break;
+            case VERTICAL:
+            xi = ancho / 2;
+            yi = 0;
+            xf = ancho / 2;
+            yf = largo;
+            break;
+            case DIAGONAL:
+            xi = ancho;
+            yi = 0;
+            xf = 0;
+            yf = largo;
+            break;
+            
+        }
+        grphcs.drawLine(xi, yi, xf, yf);
     }
     
 }
