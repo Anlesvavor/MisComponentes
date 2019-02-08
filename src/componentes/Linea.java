@@ -5,7 +5,10 @@
  */
 package componentes;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JComponent;
 
 /**
@@ -15,8 +18,12 @@ import javax.swing.JComponent;
 public class Linea extends JComponent{
 
     public Linea() {
+        color = Color.BLACK;
+        tipo = TipoLinea.DIAGONAL_INVERTIDA;
+        espesor = 1;
     }
-
+   
+    
     public Linea(TipoLinea tipo) {
         this.tipo = tipo;
     }
@@ -29,6 +36,22 @@ public class Linea extends JComponent{
         this.tipo = tipo;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getEspesor() {
+        return espesor;
+    }
+
+    public void setEspesor(int espesor) {
+        this.espesor = espesor;
+    }
+
     public enum TipoLinea {
         DIAGONAL,
         DIAGONAL_INVERTIDA,
@@ -36,7 +59,11 @@ public class Linea extends JComponent{
         VERTICAL
     }
     
-    private TipoLinea tipo;
+    private TipoLinea tipo = TipoLinea.DIAGONAL_INVERTIDA;
+    private Color color;
+    private int espesor;
+    
+    
    
     @Override
     public void paint(Graphics grphcs) {
@@ -66,6 +93,9 @@ public class Linea extends JComponent{
             break;
             
         }
+        grphcs.setColor(getColor());
+        Graphics2D g = (Graphics2D) grphcs;
+        g.setStroke(new BasicStroke(getEspesor()));
         grphcs.drawLine(xi, yi, xf, yf);
     }
     
